@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -116,7 +114,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withId(string $id = null): self
+    public function withId($id = null)
     {
         $new = clone $this;
         $new->id = $id;
@@ -139,7 +137,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withLocationType(string $locationType = null): self
+    public function withLocationType($locationType = null)
     {
         $new = clone $this;
         $new->locationType = $locationType;
@@ -158,7 +156,7 @@ final class GoogleAddress extends Address
     /**
      * @return array
      */
-    public function getResultType(): array
+    public function getResultType()
     {
         return $this->resultType;
     }
@@ -168,7 +166,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withResultType(array $resultType): self
+    public function withResultType(array $resultType)
     {
         $new = clone $this;
         $new->resultType = $resultType;
@@ -189,7 +187,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withFormattedAddress(string $formattedAddress = null): self
+    public function withFormattedAddress($formattedAddress = null)
     {
         $new = clone $this;
         $new->formattedAddress = $formattedAddress;
@@ -210,7 +208,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withAirport(string $airport = null): self
+    public function withAirport($airport = null)
     {
         $new = clone $this;
         $new->airport = $airport;
@@ -231,7 +229,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withColloquialArea(string $colloquialArea = null): self
+    public function withColloquialArea($colloquialArea = null)
     {
         $new = clone $this;
         $new->colloquialArea = $colloquialArea;
@@ -252,7 +250,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withIntersection(string $intersection = null): self
+    public function withIntersection($intersection = null)
     {
         $new = clone $this;
         $new->intersection = $intersection;
@@ -273,7 +271,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withNaturalFeature(string $naturalFeature = null): self
+    public function withNaturalFeature($naturalFeature = null)
     {
         $new = clone $this;
         $new->naturalFeature = $naturalFeature;
@@ -294,7 +292,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withNeighborhood(string $neighborhood = null): self
+    public function withNeighborhood($neighborhood = null)
     {
         $new = clone $this;
         $new->neighborhood = $neighborhood;
@@ -315,7 +313,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withPark(string $park = null): self
+    public function withPark($park = null)
     {
         $new = clone $this;
         $new->park = $park;
@@ -336,7 +334,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withPointOfInterest(string $pointOfInterest = null)
+    public function withPointOfInterest($pointOfInterest = null)
     {
         $new = clone $this;
         $new->pointOfInterest = $pointOfInterest;
@@ -357,7 +355,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withPolitical(string $political = null): self
+    public function withPolitical($political = null)
     {
         $new = clone $this;
         $new->political = $political;
@@ -378,7 +376,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withPremise(string $premise = null): self
+    public function withPremise($premise = null)
     {
         $new = clone $this;
         $new->premise = $premise;
@@ -399,7 +397,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withStreetAddress(string $streetAddress = null): self
+    public function withStreetAddress($streetAddress = null)
     {
         $new = clone $this;
         $new->streetAddress = $streetAddress;
@@ -420,7 +418,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withSubpremise(string $subpremise = null): self
+    public function withSubpremise($subpremise = null)
     {
         $new = clone $this;
         $new->subpremise = $subpremise;
@@ -441,7 +439,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withWard(string $ward = null): self
+    public function withWard($ward = null)
     {
         $new = clone $this;
         $new->ward = $ward;
@@ -462,7 +460,7 @@ final class GoogleAddress extends Address
      *
      * @return GoogleAddress
      */
-    public function withEstablishment(string $establishment = null): self
+    public function withEstablishment($establishment = null)
     {
         $new = clone $this;
         $new->establishment = $establishment;
@@ -473,7 +471,7 @@ final class GoogleAddress extends Address
     /**
      * @return AdminLevelCollection
      */
-    public function getSubLocalityLevels(): AdminLevelCollection
+    public function getSubLocalityLevels()
     {
         return $this->subLocalityLevels;
     }
@@ -483,7 +481,7 @@ final class GoogleAddress extends Address
      *
      * @return $this
      */
-    public function withSubLocalityLevels(array $subLocalityLevel): self
+    public function withSubLocalityLevels($subLocalityLevel)
     {
         $subLocalityLevels = [];
         foreach ($subLocalityLevel as $level) {
@@ -491,12 +489,12 @@ final class GoogleAddress extends Address
                 continue;
             }
 
-            $name = $level['name'] ?? $level['code'] ?? '';
+            $name = isset($level['name']) ? $level['name'] : (isset($level['code']) ? $level['code'] : null);
             if (empty($name)) {
                 continue;
             }
 
-            $subLocalityLevels[] = new AdminLevel($level['level'], $name, $level['code'] ?? null);
+            $subLocalityLevels[] = new AdminLevel($level['level'], $name, (isset($level['code']) ? $level['code'] : null));
         }
 
         $new = clone $this;
